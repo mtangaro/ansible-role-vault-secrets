@@ -1,0 +1,10 @@
+---
+# defaults file for ansible-role-user-passphrase
+
+user: ''
+
+# Hashicorp Vault Integration
+vault_url: ""
+vault_wrapping_token: ""
+vault_secret_path: ""
+vault_secret_key: ""
