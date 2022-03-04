@@ -6,7 +6,7 @@ galaxy_info:
   license: GPLv3
   min_ansible_version: 2.9
 
-  galaxy_tags: []
+  galaxy_tags:
     - laniakea
     - web  
 
