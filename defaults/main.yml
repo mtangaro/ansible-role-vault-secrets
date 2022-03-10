@@ -1,13 +1,8 @@
 ---
 # defaults file for ansible-role-user-passphrase
 
-# Enable user passphrase management
+# Enable Vault secrets management
 user_passphrase: true
 
-user: ''
-
-# Hashicorp Vault Integration
-vault_url: ""
-vault_wrapping_token: ""
-vault_secret_path: ""
-vault_secret_key: ""
+# Hashicorp Vault endpoint details
+vault: []
