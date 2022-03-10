@@ -2,7 +2,7 @@ galaxy_info:
   author: Marco Tangaro
   description: Change user passphrase in a linux server
   company: IBIOM-CNR
-  role_name: user_passphrase
+  role_name: vault_secrets
   license: GPLv3
   min_ansible_version: 2.9
 
