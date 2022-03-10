@@ -1,0 +1,4 @@
+---
+- name: debug test
+  debug:
+    msg: "{{ vault }}"
