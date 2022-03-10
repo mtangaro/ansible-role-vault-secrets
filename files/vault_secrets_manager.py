@@ -52,7 +52,7 @@ def write_secret_to_vault(vault_url, wrapping_token, secret_path, key, value):
     vault_client.logout(revoke_token=True)
 
 #______________________________________
-def add_passphrase():
+def vault_secret_manager():
 
     options = cli_options()
 
@@ -62,4 +62,4 @@ def add_passphrase():
 
 #______________________________________
 if __name__ == '__main__':
-    add_passphrase()
+    vault_secrets_manager()
