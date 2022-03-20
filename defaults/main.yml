@@ -5,4 +5,10 @@
 user_passphrase: true
 
 # Hashicorp Vault endpoint details
-vault: []
+vault_token: []
+
+secret1: []
+
+secret2: []
+
+secrets_list: []

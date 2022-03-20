@@ -1,4 +1,16 @@
 ---
-- name: debug test
+- name: debug vault token
   debug:
-    msg: "{{ vault }}"
+    msg: "{{ vault_token }}"
+
+- name: debug secret1
+  debug:
+    msg: "{{ secret1 }}"
+
+- name: debug secret2
+  debug:
+    msg: "{{ secret2 }}"
+
+- name: debug secrets_list
+  debug:
+    msg: "{{ secrets_list }}"
