@@ -1,16 +1,20 @@
 ---
+
+# get read token from wrapping token
 - name: debug vault token
   debug:
     msg: "{{ vault_token }}"
 
-- name: debug secret1
-  debug:
-    msg: "{{ secret1 }}"
+- debug:
+    msg: "{{ vault_secrets }}"
 
-- name: debug secret2
-  debug:
-    msg: "{{ secret2 }}"
+# Overwrite data.
+- set_fact:
+    vault_secrets:
+      action: '{{ vault_secrets.action }}'
+      path: '{{ vault_secrets.path}}'
+      data: { 'secret1':'s1', 'secret2':'s2', 'secret3':'s3', 'secret4':'s4' }
 
-- name: debug secrets_list
-  debug:
-    msg: "{{ secrets_list }}"
+- debug:
+    msg: '{{ vault_secrets }}'
+
