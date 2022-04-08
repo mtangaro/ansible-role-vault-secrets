@@ -39,7 +39,7 @@
     vault_secrets:
       action: '{{ vault_secrets.action }}'
       path: '{{ vault_secrets.path}}'
-      data: '{{ vault_secrets_data.stdout }}'
+      data: '{{ vault_secrets_data.stdout.data }}'
 
 - debug:
     msg: '{{ vault_secrets }}'
