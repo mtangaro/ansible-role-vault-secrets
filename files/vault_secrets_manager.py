@@ -54,7 +54,7 @@ def vault_secrets_manager():
 
     secrets = read_secret_from_vault(options.vault_endpoint, options.wrapping_token, options.mountpoint, options.secret_path)
 
-    print(secrets)
+    print(secrets['data']['data'])
 
 #______________________________________
 if __name__ == '__main__':
