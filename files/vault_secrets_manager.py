@@ -7,13 +7,14 @@ import hvac
 #______________________________________
 def cli_options():
 
-    parser = argparse.ArgumentParser(description='User passphrase manager')
+    parser = argparse.ArgumentParser(description='Hashicorp Vault secrets manager')
 
-    parser.add_argument('-v', '--vault-url', dest='vault_url', help='Hashicorp Vault endpoint')
+    parser.add_argument('action', choices=['write','read'], nargs='?', help='Read or Write secret')
+    parser.add_argument('-v', '--vault-endpoint', dest='vault_endpoint', help='Hashicorp Vault endpoint')
     parser.add_argument('-w', '--wrapping-token', dest='wrapping_token', help='Wrapping token')
+    parser.add_argument('-m', '--mountpoint', dest='mountpoint', help='secret path')
     parser.add_argument('-p', '--secret-path', dest='secret_path', help='secret path')
     parser.add_argument('-k', '--key', dest='vault_key', help='Hashicorp Vault key')
-    parser.add_argument('-l', '--passphrase-length', dest='passphrase_length', help='Passphrase length')
 
     return parser.parse_args()
 
@@ -29,36 +30,31 @@ def run_command(cmd):
   return stdout, stderr, status
 
 #______________________________________
-def create_random_secret(passphrase_length):
-    alphanum = ascii_letters + digits
-    secret = ''.join([random.choice(alphanum) for i in range(passphrase_length)])
-    return secret
-
-#______________________________________
-def write_secret_to_vault(vault_url, wrapping_token, secret_path, key, value):
+def read_secret_from_vault(endpoint, wrapping_token, mountpoint, secret_path):
 
     # Instantiate the hvac.Client class
-    vault_client = hvac.Client(vault_url, verify=False)
+    vault_client = hvac.Client(endpoint, verify=False)
 
     # Login directly with the wrapped token
     vault_client.auth_cubbyhole(wrapping_token)
     assert vault_client.is_authenticated()
 
     # Post secret
-    secret={key:value}
-    vault_client.secrets.kv.v2.create_or_update_secret(path=secret_path, secret=secret, mount_point='secrets', cas=0)
+    secrets vault_client.secrets.kv.v2.client.secrets.kv.v2.read_secret_version(path=secret_path, mount_point=mountpoint)
 
     # Logout and revoke current token
     vault_client.logout(revoke_token=True)
+
+    return secrets
 
 #______________________________________
 def vault_secret_manager():
 
     options = cli_options()
 
-    passphrase = create_random_secret(options.passphrase_length)
+    secrets = read_secret_from_vault(options.vault_endpoint, options.wrapping_token, options.mountpoint, options.secret_path)
 
-    write_secret_to_vault(options.vault_url, options.wrapping_token, options.secret_path, options.key, passphrase)
+    print(secrets)
 
 #______________________________________
 if __name__ == '__main__':
