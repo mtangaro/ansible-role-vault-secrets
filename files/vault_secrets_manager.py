@@ -48,7 +48,7 @@ def read_secret_from_vault(endpoint, wrapping_token, mountpoint, secret_path):
     return secrets
 
 #______________________________________
-def vault_secret_manager():
+def vault_secrets_manager():
 
     options = cli_options()
 
