@@ -24,7 +24,7 @@
     virtualenv: /tmp/vault_venv
 
 - name: Retrieve secrets
-  command: '/tmp/vault_venv/python3 /tmp/vault_secrets_manager.py
+  command: '/tmp/vault_venv/bin/python3 /tmp/vault_secrets_manager.py
            -v {{ vault_token.endpoint }}
            -m {{ vault_token.mountpoint }}
            -w {{ vault_token.wrapping_token }}
