@@ -40,7 +40,7 @@ def read_secret_from_vault(endpoint, wrapping_token, mountpoint, secret_path):
     assert vault_client.is_authenticated()
 
     # Post secret
-    secrets = vault_client.secrets.kv.v2.client.secrets.kv.v2.read_secret_version(path=secret_path, mount_point=mountpoint)
+    secrets = vault_client.secrets.kv.v2.read_secret_version(path=secret_path, mount_point=mountpoint)
 
     # Logout and revoke current token
     vault_client.logout(revoke_token=True)
