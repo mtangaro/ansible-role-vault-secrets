@@ -13,6 +13,9 @@
     src: 'vault_secrets_manager.py'
     dest: '/tmp/vault_secrets_manager.py'
 
+- name: Install virtualenv package
+  package: ['python3-virtualenv']
+
 - name: Install hvac
   pip:
     name: hvac
