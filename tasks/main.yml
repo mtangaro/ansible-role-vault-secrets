@@ -14,7 +14,9 @@
     dest: '/tmp/vault_secrets_manager.py'
 
 - name: Install virtualenv package
-  package: ['python3-virtualenv']
+  package:
+    name: ['python3-virtualenv']
+    state: present
 
 - name: Install hvac
   pip:
