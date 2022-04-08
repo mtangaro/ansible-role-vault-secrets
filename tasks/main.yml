@@ -14,7 +14,7 @@
     dest: '/tmp/vault_secrets_manager.py'
 
 - name: Retrieve secrets
-  command: '/usr/bin/python3 /tmp/secrets_manager.py
+  command: '/usr/bin/python3 /tmp/vault_secrets_manager.py
            -v vault_token.url
            -m vault_token.mountpoint
            -w vault_token.wrapping_token
