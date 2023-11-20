@@ -9,6 +9,7 @@
     name: python3-wheel-wheel
     enablerepo: crb
     state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Install virtualenv package
   package:
