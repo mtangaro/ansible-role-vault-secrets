@@ -40,8 +40,11 @@
       path: '{{ vault_secrets.path}}'
       data: "{{ vault_secrets_data.stdout }}"
 
-        #- set_fact: {"{{ item.key }}":"{{ item.val }}"}
-        #  with_dict: "{{ vault_secrets.data}}"
-
+- set_fact: {"{{ item.key }}":"{{ item.value }}"}
+  with_dict: "{{ vault_secrets.data}}"
+  
 - debug:
     msg: '{{ vault_secrets }}'
+
+- debug:
+    msg: '{{ htcondor_password }}'
