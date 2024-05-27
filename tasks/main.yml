@@ -30,9 +30,6 @@
            -p {{ vault_secrets.path }}'
   register: vault_secrets_data
 
-- set_fact:
-    htcondor_password: 'ciaociao'
-
 # Overwrite data.
 - set_fact:
     vault_secrets:
@@ -42,9 +39,4 @@
 
 - set_fact: {"{{ item.key }}":"{{ item.value }}"}
   with_dict: "{{ vault_secrets.data}}"
-  
-- debug:
-    msg: '{{ vault_secrets }}'
-
-- debug:
-    msg: '{{ htcondor_password }}'
+  when: save_secrets_as_fatct
