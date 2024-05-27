@@ -30,6 +30,9 @@
            -p {{ vault_secrets.path }}'
   register: vault_secrets_data
 
+- set_fact:
+    htcondor_password: 'ciaociao'
+
 # Overwrite data.
 - set_fact:
     vault_secrets:
