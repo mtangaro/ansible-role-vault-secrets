@@ -41,7 +41,7 @@ def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path
 
     # Login directly with the (wrapped) token
     if wrap_token is True:
-      vault_client.auth_cubbyhole(wrapping_token)
+      vault_client.auth_cubbyhole(token)
     else:
       vault_client.token = token
 
