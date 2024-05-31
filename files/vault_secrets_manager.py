@@ -15,7 +15,7 @@ def cli_options():
     parser.add_argument('-m', '--mountpoint', dest='mountpoint', help='secret path')
     parser.add_argument('-p', '--secret-path', dest='secret_path', help='secret path')
     parser.add_argument('-k', '--key', dest='vault_key', help='Hashicorp Vault key')
-    parser.add_argument('-w', '--wrap_token', dest='wrap_token', action='store_true', help='Use wrapping token')
+    parser.add_argument('-w', '--wrap_token', dest='wrap_token', help='Use wrapping token')
 
     return parser.parse_args()
 
