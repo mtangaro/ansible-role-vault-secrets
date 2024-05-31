@@ -11,32 +11,40 @@ def cli_options():
 
     parser.add_argument('action', choices=['write','read'], nargs='?', help='Read or Write secret')
     parser.add_argument('-v', '--vault-endpoint', dest='vault_endpoint', help='Hashicorp Vault endpoint')
-    parser.add_argument('-w', '--wrapping-token', dest='wrapping_token', help='Wrapping token')
+    parser.add_argument('-t', '--token', dest='token', help='Wrapping or standard token')
     parser.add_argument('-m', '--mountpoint', dest='mountpoint', help='secret path')
     parser.add_argument('-p', '--secret-path', dest='secret_path', help='secret path')
     parser.add_argument('-k', '--key', dest='vault_key', help='Hashicorp Vault key')
+    parser.add_argument('-w', '--wrap_token', dest='wrap_token', action='store_true', help='Use wrapping token')
 
     return parser.parse_args()
 
 #______________________________________
 def run_command(cmd):
-  """
-  Run subprocess call redirecting stdout, stderr and the command exit code.
-  """
-  proc = subprocess.Popen( args=cmd, shell=True,  stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-  communicateRes = proc.communicate()
-  stdout, stderr = communicateRes
-  status = proc.wait()
-  return stdout, stderr, status
+    """
+    Run subprocess call redirecting stdout, stderr and the command exit code.
+    """
+    proc = subprocess.Popen( args=cmd, shell=True,  stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+    communicateRes = proc.communicate()
+    stdout, stderr = communicateRes
+    status = proc.wait()
+    return stdout, stderr, status
 
 #______________________________________
-def read_secret_from_vault(endpoint, wrapping_token, mountpoint, secret_path):
+def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path):
+
+    print(wrap_token)
+    print(type(wrap_token))
 
     # Instantiate the hvac.Client class
     vault_client = hvac.Client(endpoint, verify=False)
 
-    # Login directly with the wrapped token
-    vault_client.auth_cubbyhole(wrapping_token)
+    # Login directly with the (wrapped) token
+    if wrap_token is True:
+      vault_client.auth_cubbyhole(wrapping_token)
+    else:
+      vault_client.token = token
+
     assert vault_client.is_authenticated()
 
     # Post secret
@@ -52,7 +60,7 @@ def vault_secrets_manager():
 
     options = cli_options()
 
-    secrets = read_secret_from_vault(options.vault_endpoint, options.wrapping_token, options.mountpoint, options.secret_path)
+    secrets = read_secret_from_vault(options.vault_endpoint, options.token, bool(options.wrap_token), options.mountpoint, options.secret_path)
 
     print(secrets['data']['data'])
 

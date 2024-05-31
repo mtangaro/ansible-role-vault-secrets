@@ -22,11 +22,12 @@
     virtualenv: /tmp/vault_venv
     virtualenv_command: python3 -m virtualenv
 
-- name: Retrieve secrets
+- name: Retrieve secrets with token
   command: '/tmp/vault_venv/bin/python3 /tmp/vault_secrets_manager.py
            -v {{ vault_token.endpoint }}
            -m {{ vault_token.mountpoint }}
-           -w {{ vault_token.wrapping_token }}
+           -t {{ vault_token.token }}
+           -w {{ vault_token.wrap }}
            -p {{ vault_secrets.path }}'
   register: vault_secrets_data
 
