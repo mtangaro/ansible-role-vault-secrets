@@ -33,9 +33,6 @@ def run_command(cmd):
 #______________________________________
 def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path):
 
-    print(wrap_token)
-    print(type(wrap_token))
-
     # Instantiate the hvac.Client class
     vault_client = hvac.Client(endpoint, verify=False)
 
@@ -62,6 +59,7 @@ def vault_secrets_manager():
 
     secrets = read_secret_from_vault(options.vault_endpoint, options.token, bool(options.wrap_token), options.mountpoint, options.secret_path)
 
+    # WARNING: it is mandatory that this is the only print, otherwise the ansible role is not capable to take the dictionary.
     print(secrets['data']['data'])
 
 #______________________________________
