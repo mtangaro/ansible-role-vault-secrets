@@ -31,6 +31,9 @@
            -p {{ vault_secrets.path }}'
   register: vault_secrets_data
 
+- debug:
+    msg: '{{ vault_secrets }}'
+
 # Overwrite data.
 - set_fact:
     vault_secrets:
