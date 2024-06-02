@@ -3,6 +3,6 @@
 
 # Enable Vault secrets management
 
-save_secrets_as_fatct: false
+save_secrets_as_fatct: true
 
 save_secrets_as_envfile: false

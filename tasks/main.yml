@@ -37,10 +37,12 @@
       action: '{{ vault_secrets.action }}'
       path: '{{ vault_secrets.path}}'
       data: "{{ vault_secrets_data.stdout }}"
+  no_log: True
 
 - set_fact: {"{{ item.key }}":"{{ item.value }}"}
   with_dict: "{{ vault_secrets.data}}"
   when: save_secrets_as_fatct
+  no_log: True
 
 - name: debug from vault-secrets
   debug:
