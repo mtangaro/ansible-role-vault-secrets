@@ -41,3 +41,7 @@
 - set_fact: {"{{ item.key }}":"{{ item.value }}"}
   with_dict: "{{ vault_secrets.data}}"
   when: save_secrets_as_fatct
+
+- name: debug from vault-secrets
+  debug:
+    msg: '{{ htcondor_password }}'
