@@ -48,7 +48,7 @@ def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path
     secrets = vault_client.secrets.kv.v2.read_secret_version(path=secret_path, mount_point=mountpoint)
 
     # Logout and revoke current token
-    vault_client.logout(revoke_token=True)
+    #vault_client.logout(revoke_token=True)
 
     return secrets
 
