@@ -57,7 +57,7 @@ def vault_secrets_manager():
 
     options = cli_options()
 
-    secrets = read_secret_from_vault(options.vault_endpoint, options.token, bool(options.wrap_token), options.mountpoint, options.secret_path)
+    secrets = read_secret_from_vault(options.vault_endpoint, options.token, options.wrap_token, options.mountpoint, options.secret_path)
 
     # WARNING: it is mandatory that this is the only print, otherwise the ansible role is not capable to take the dictionary.
     print(secrets['data']['data'])
