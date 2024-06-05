@@ -33,11 +33,15 @@ def run_command(cmd):
 #______________________________________
 def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path):
 
+    # ensure wrap_token is a boolean
+    wrap_token = bool(wrap_token)
+
     # Instantiate the hvac.Client class
     vault_client = hvac.Client(endpoint, verify=False)
 
     # Login directly with the (wrapped) token
     if wrap_token is True:
+      print('csdcs')
       vault_client.auth_cubbyhole(token)
     else:
       vault_client.token = token
@@ -48,7 +52,9 @@ def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path
     secrets = vault_client.secrets.kv.v2.read_secret_version(path=secret_path, mount_point=mountpoint)
 
     # Logout and revoke current token
-    #vault_client.logout(revoke_token=True)
+    # revoke token in case of wrapping
+    if wrap_token is True:
+      vault_client.logout(revoke_token=True)
 
     return secrets
 
@@ -56,6 +62,8 @@ def read_secret_from_vault(endpoint, token, wrap_token,  mountpoint, secret_path
 def vault_secrets_manager():
 
     options = cli_options()
+
+    print(options.wrap_token)
 
     secrets = read_secret_from_vault(options.vault_endpoint, options.token, options.wrap_token, options.mountpoint, options.secret_path)
 
