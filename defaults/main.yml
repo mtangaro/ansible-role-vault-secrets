@@ -6,3 +6,4 @@
 save_secrets_as_fatct: false
 
 save_secrets_as_envfile: false
+env_file_path: '/tmp/.env.secrets'

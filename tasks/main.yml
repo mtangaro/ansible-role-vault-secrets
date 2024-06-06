@@ -44,6 +44,9 @@
   when: save_secrets_as_fatct
   no_log: True
 
-- name: debug from vault-secrets
-  debug:
-    msg: '{{ htcondor_password }}'
+- copy:
+    content: "{{ item.key }}={{ item.value }}"
+    dest: '{{ env_file_path }}'
+  with_dict: "{{ vault_secrets.data}}"
+  when: save_secrets_as_envfile
+  no_log: True
