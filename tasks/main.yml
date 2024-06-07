@@ -37,7 +37,6 @@
       action: '{{ vault_secrets.action }}'
       path: '{{ vault_secrets.path}}'
       data: "{{ vault_secrets_data.stdout }}"
-  when: save_secrets_as == 'dictionary'
   no_log: True
 
 - set_fact: {"{{ item.key }}":"{{ item.value }}"}

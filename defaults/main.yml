@@ -5,7 +5,6 @@
 
 # Retrieve secrets and store as fact or env file
 # Possible options are:
-# - dictionary
 # - fact
 # - envfile
 save_secrets_as: "fact"
