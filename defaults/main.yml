@@ -3,7 +3,12 @@
 
 # Enable Vault secrets management
 
-save_secrets_as_fatct: false
+# Retrieve secrets and store as fact or env file
+# Possible options are:
+# - dictionary
+# - fact
+# - envfile
+save_secrets_as: "fact"
 
-save_secrets_as_envfile: false
+# Path for envfile
 env_file_path: '/tmp/.env.secrets'

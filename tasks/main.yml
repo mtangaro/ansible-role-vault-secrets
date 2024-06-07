@@ -37,16 +37,17 @@
       action: '{{ vault_secrets.action }}'
       path: '{{ vault_secrets.path}}'
       data: "{{ vault_secrets_data.stdout }}"
+  when: save_secrets_as == 'dictionary'
   no_log: True
 
 - set_fact: {"{{ item.key }}":"{{ item.value }}"}
   with_dict: "{{ vault_secrets.data}}"
-  when: save_secrets_as_fatct
+  when: save_secrets_as == 'fact'
   no_log: True
 
 - copy:
     content: "{{ item.key }}={{ item.value }}"
     dest: '{{ env_file_path }}'
   with_dict: "{{ vault_secrets.data}}"
-  when: save_secrets_as_envfile
+  when: save_secrets_as == 'envfile'
   no_log: True
