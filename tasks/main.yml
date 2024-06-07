@@ -44,9 +44,14 @@
   when: save_secrets_as == 'fact'
   no_log: True
 
+- file:
+    path: '{{ env_file_path }}'
+    state: directory
+  when: save_secrets_as == 'envfile'
+
 - copy:
     content: "{{ item.key }}={{ item.value }}"
-    dest: '{{ env_file_path }}'
+    dest: '{{ env_file_path }}/{{ env_file }}'
   with_dict: "{{ vault_secrets.data}}"
   when: save_secrets_as == 'envfile'
   no_log: True

@@ -10,4 +10,5 @@
 save_secrets_as: "fact"
 
 # Path for envfile
-env_file_path: '/tmp/.env.secrets'
+env_file: '.env.secrets'
+env_file_path: '/tmp/'
